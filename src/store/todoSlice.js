@@ -1,9 +1,16 @@
 import {createSlice} from '@reduxjs/toolkit';
 
+export const filters = {
+    ALL: "ALL",
+    COMPLETED: "COMPLETED",
+    NOT_COMPLETED: "NOT_COMPLETED"
+}
+
 const todoSlice = createSlice({
     name: 'todo',
     initialState: {
         todo: [],
+        FilterTodo: filters.All,
     },
     reducers: {
         CreateTodo(store, action) {
@@ -20,9 +27,12 @@ const todoSlice = createSlice({
         ToggleTodo(store, action) {
             const toggledTodo = store.todo.find(todoitem => todoitem.id === action.payload.id);
             toggledTodo.completed = !toggledTodo.completed;        
+        },
+        FilterTodo(store, action) {
+            store.FilterTodo = action.payload;
         }
     },
 });
 
-export const {CreateTodo, DeleteTodo, ToggleTodo} = todoSlice.actions;
+export const {CreateTodo, DeleteTodo, ToggleTodo, FilterTodo} = todoSlice.actions;
 export default todoSlice.reducer;
